@@ -15,8 +15,9 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ExternalLinkIcon } from "lucide-react";
+import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 type Params = Promise<{ request: string }>;
 
@@ -58,7 +59,7 @@ export default async function LinkAccountPage({ params }: { params: Params }) {
           className="contents p-0 md:grid [&>div:first-child]:hidden md:[&>div:first-child]:block"
           color={["#444444", "#444444"]}
         >
-          <Card className="md:min-h-auto flex min-h-full w-full flex-col rounded-none md:max-w-md md:rounded-md">
+          <Card className="flex min-h-full w-full flex-col rounded-none md:min-h-auto md:max-w-md md:rounded-md">
             <CardHeader className="bg-muted flex items-center gap-4 p-6">
               {/* Images */}
               <AnimatedUserIcon image={avatar} />
@@ -86,7 +87,29 @@ export default async function LinkAccountPage({ params }: { params: Params }) {
                 </div>
 
                 {/* Permissions */}
-                <div className="space-y-4">
+
+                <Alert className="">
+                  <AlertTriangle className="size-[1em] translate-y-0.5 text-yellow-300!" />
+                  <AlertTitle className="text-sm">Heads up!</AlertTitle>
+                  <AlertDescription className="text-xs">
+                    Using Spoticord may cause Spotify to reset your password.
+                    <br />
+                    Do <span className="underline">not</span> use the bot if you
+                    do not have access to the email address associated with your
+                    Spotify account.
+                    <br />
+                    <br />
+                    <a
+                      className="text-blue-400 underline"
+                      href="https://github.com/SpoticordMusic/spoticord/discussions/53"
+                      target="_blank"
+                      rel="noreferer noopener"
+                    >
+                      Learn more.
+                    </a>
+                  </AlertDescription>
+                </Alert>
+                {/* <div className="space-y-4">
                   <Separator />
                   <div className="space-y-2">
                     <div className="text-xs font-medium md:text-sm">
@@ -119,13 +142,13 @@ export default async function LinkAccountPage({ params }: { params: Params }) {
                     </p>
                   </div>
                   <Separator />
-                </div>
+                </div> */}
               </div>
             </CardContent>
 
             <CardFooter className="relative flex-1 items-end overflow-hidden">
               <div className="flex w-full items-end">
-                <Button variant="outline" className="ml-auto mr-0" asChild>
+                <Button variant="outline" className="mr-0 ml-auto" asChild>
                   <a href={authorizeUrl}>
                     <ExternalLinkIcon className="mr-2 size-4" />
                     Authenticate with Spotify
